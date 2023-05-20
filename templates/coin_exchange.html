@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>코인 거래소</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/coin_exchange.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>코인 거래소</h1>
+        <div class="coin-info">
+            <h2>현재 코인 가격: {{ coin_price }}원</h2>
+            <p>코인 가격 변동: {{ price_change }}</p>
+        </div>
+        <div class="user-info">
+            <h2>사용자 정보</h2>
+            <p>잔고: {{ user_balance }}원</p>
+            <p>보유 코인 수: {{ user_coins }}개</p>
+        </div>
+        <div class="transaction">
+            <form action="/buy" method="POST">
+                <label for="buy-amount">구매할 코인 수:</label>
+                <input type="number" id="buy-amount" name="buy_amount" required>
+                <input type="submit" value="구매">
+            </form>
+            <form action="/sell" method="POST">
+                <label for="sell-amount">판매할 코인 수:</label>
+                <input type="number" id="sell-amount" name="sell_amount" required>
+                <input type="submit" value="판매">
+            </form>
+        </div>
+        <div class="coin-list">
+            <h2>거래 가능한 코인 목록</h2>
+            <ul>
+                {% for coin in available_coins %}
+                <li>{{ coin.name }} (가격: {{ coin.price }}원)</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="transaction-history">
+            <h2>거래 내역</h2>
+            <table>
+                <tr>
+                    <th>거래 유형</th>
+                    <th>코인 수</th>
+                    <th>거래 가격</th>
+                </tr>
+                {% for transaction in transaction_history %}
+                <tr>
+                    <td>{{ transaction.type }}</td>
+                    <td>{{ transaction.coin_amount }}</td>
+                    <td>{{ transaction.price }}원</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="logout">
+            <a href="/logout">로그아웃</a>
+        </div>
+    </div>
+</body>
+</html>

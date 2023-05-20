@@ -1,0 +1,116 @@
+body {
+    background-color: #f8f8f8;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 50px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.coin-info {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.coin-info h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.user-info {
+    margin-bottom: 30px;
+}
+
+.user-info h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.transaction form {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.transaction form label {
+    margin-right: 10px;
+}
+
+
+.transaction form input[type="number"] {
+    margin-right: 5px; /* 입력 필드와 버튼 사이의 간격을 조정하는 마진 값 */
+    width: 100px; /* 예시로 입력 필드의 너비를 100px로 조정 */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.transaction form input[type="submit"] {
+    margin-left: 5px; /* 버튼 사이의 간격을 조정하는 마진 값 */
+    width: 80px; /* 예시로 버튼의 너비를 80px로 조정 */
+    padding: 10px;
+    background-color: #4285f4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.coin-list {
+    margin-bottom: 30px;
+}
+
+.coin-list ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.coin-list ul li {
+    margin-bottom: 5px;
+}
+
+.transaction-history table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transaction-history table th,
+.transaction-history table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.transaction-history table th {
+    font-weight: bold;
+}
+
+.logout {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.logout a {
+    color: #4285f4;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logout a:hover {
+    text-decoration: underline;
+}
