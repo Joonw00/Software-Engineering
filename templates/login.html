@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in</title>
+    <?php include 'templates\header.html' ?>
+</head>
+<body>
+    <form action="/login" method="post">
+        <div class="container">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" id="userid" name="userid" required>
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" id="userpw" name="userpw" required>
+            <button type="submit">Login</button>
+        </div>
+    </form>
+</body>
+</html>
