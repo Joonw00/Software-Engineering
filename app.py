@@ -1,47 +1,19 @@
-# 필요한 패키지 임포트
-from flask import Flask, render_template, request, redirect, session
-from pymongo import MongoClient
+from flask import Flask
+from flask_pymongo import PyMongo
+from routes.coin_routes import coin_bp
+from routes.user_routes import user_bp
 
-# Flask 애플리케이션 생성
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
 
-# MongoDB 클라이언트 생성
-client = MongoClient('mongodb://localhost:27017/')
-db = client['coin_marketplace']
+# MongoDB 연결 정보 설정
+#Mongo_uri에는 MongoDB의 연결 URI를 설정
+app.config["MONGO_URI"] = "mongodb://localhost:27017/coin_trading" 
+#mongodb://localhost:27017/coin_trading는 로컬 MongoDB 서버의 coin_trading 데이터베이스에 연결하는 예시,실제 uri로 수정 필요
+mongo = PyMongo(app)
 
-# 로그인 페이지
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        
-        # 로그인 인증 로직 작성
-        # 사용자 정보를 DB에서 조회하고 인증 처리
-        
-        # 인증 성공 시 세션 설정
-        session['username'] = username
-        return redirect('/coin_exchange')
-    
-    return render_template('login.html')
+app = Flask(__name__)
+app.register_blueprint(coin_bp)
+app.register_blueprint(user_bp)
 
-# 코인 거래소 페이지
-@app.route('/coin_exchange')
-def coin_exchange():
-    if 'username' not in session:
-        return redirect('/login')
-    
-    # 현재 코인 가격 및 거래소 정보 조회 로직 작성
-    
-    return render_template('coin_exchange.html')
-
-# 로그아웃
-@app.route('/logout')
-def logout():
-    session.pop('username', None)
-    return redirect('/login')
-
-# 애플리케이션 실행
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()
