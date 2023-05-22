@@ -9,6 +9,9 @@ class User:
         self.money = money
         self.coins = {}
 
+    def save(self):
+        DB.users.insert_one(self.__dict__)
+        
     def deposit_money(self, amount):
         self.money += amount
 

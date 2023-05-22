@@ -12,7 +12,7 @@ def signup():
         username = request.form.get("username")
         name = request.form.get("name")
         password = request.form.get("password")
-        user = user(username, name, password, coin=0, money=0)
+        user = User(username, name, password, coin=0, money=0)
         user.save()
 
         # 응답 처리하는 코드
