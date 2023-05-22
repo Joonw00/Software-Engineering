@@ -25,7 +25,7 @@ class User:
                 username=user_data["username"],
                 name=user_data["name"],
                 password=user_data["password"],
-                coin=user_data.get("coin", 0),
-                money=user_data.get("money", 0)
+                coin=user_data.get("coin"),
+                money=user_data.get("money")
             )
         return None
