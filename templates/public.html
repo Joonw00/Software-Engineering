@@ -1,0 +1,59 @@
+<!-- public.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Public Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/public.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Public Page</h1>
+        <a href="{{ url_for('user.login') }}" class="login-btn">로그인</a>
+    </header>
+
+    <section class="coin-section">
+        <h2>현재 코인 가격</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>코인 이름</th>
+                    <th>가격</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for coin in coins %}
+                <tr>
+                    <td>{{ coin.name }}</td>
+                    <td>{{ coin.price }}원</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="transaction-section">
+        <h2>채결 내역</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>사용자</th>
+                    <th>거래 유형</th>
+                    <th>코인</th>
+                    <th>수량</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.username }}</td>
+                    <td>{{ transaction.type }}</td>
+                    <td>{{ transaction.coin }}</td>
+                    <td>{{ transaction.amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

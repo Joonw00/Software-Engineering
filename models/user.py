@@ -1,5 +1,4 @@
 from models.db import DB
-from flask import session
 
 class User:
     def __init__(self, username, name, password, coin=0, money=0):
@@ -8,6 +7,47 @@ class User:
         self.password = password
         self.coin = coin
         self.money = money
+        self.coins = {}
+
+    def deposit_money(self, amount):
+        self.money += amount
+
+    def withdraw_money(self, amount):
+        if amount <= self.money:
+            self.money -= amount
+        else:
+            raise ValueError("Insufficient balance.")
+
+    def buy_coin(self, coin, amount):
+        if amount * coin.price <= self.money:
+            if coin.name in self.coins:
+                self.coins[coin.name] += amount
+            else:
+                self.coins[coin.name] = amount
+            self.money -= amount * coin.price
+        else:
+            raise ValueError("Insufficient balance.")
+
+    def sell_coin(self, coin, amount):
+        if coin.name in self.coins and self.coins[coin.name] >= amount:
+            self.coins[coin.name] -= amount
+            self.money += amount * coin.price
+            if self.coins[coin.name] == 0:
+                del self.coins[coin.name]
+        else:
+            raise ValueError("Insufficient coin balance.")
+
+    @staticmethod
+    def get_user_by_username(username):
+        # Code to retrieve user from database based on username
+        # Replace with your own implementation
+        user_data = {
+            "username": "john123",
+            "password": "password123",
+            "name": "John Doe",
+            "money": 1000.0,
+        }
+        return User(**user_data)
 
     def save(self):
         DB.users.insert_one(self.__dict__)

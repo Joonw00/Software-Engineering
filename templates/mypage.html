@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>마이 페이지</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/mypage.css') }}">
+</head>
+<body>
+    <header>
+        <h1>마이 페이지</h1>
+    </header>
+    <main>
+        <section class="balance">
+            <h2>잔액</h2>
+            <p>보유 현금: {{ user.balance }}원</p>
+            <p>보유 코인: {{ user.coins }}</p>
+        </section>
+        <section class="transaction-history">
+            <h2>거래 내역</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>날짜</th>
+                        <th>종류</th>
+                        <th>코인</th>
+                        <th>수량</th>
+                        <th>가격</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction.timestamp }}</td>
+                        <td>{{ transaction.transaction_type }}</td>
+                        <td>{{ transaction.coin }}</td>
+                        <td>{{ transaction.amount }}</td>
+                        <td>{{ transaction.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        <section class="transaction">
+            <h2>거래하기</h2>
+            <form action="{{ url_for('static', filename='transaction') }}" method="POST">
+                <label for="transaction-type">거래 종류:</label>
+                <select name="transaction-type" id="transaction-type">
+                    <option value="deposit">입금</option>
+                    <option value="withdraw">출금</option>
+                    <option value="buy">코인 구매</option>
+                    <option value="sell">코인 판매</option>
+                </select>
+                <br>
+                <label for="coin">코인:</label>
+                <input type="text" name="coin" id="coin">
+                <br>
+                <label for="amount">수량:</label>
+                <input type="text" name="amount" id="amount">
+                <br>
+                <label for="price">가격:</label>
+                <input type="text" name="price" id="price">
+                <br>
+                <input type="submit" value="거래하기">
+            </form>
+        </section>
+    </main>
+</body>
+</html>

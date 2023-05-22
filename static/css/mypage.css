@@ -1,0 +1,69 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+.balance p {
+    margin: 5px 0;
+}
+
+.transaction-history table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transaction-history th,
+.transaction-history td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.transaction-history th {
+    background-color: #f2f2f2;
+}
+
+.transaction form {
+    margin-top: 20px;
+}
+
+.transaction label,
+.transaction input,
+.transaction select,
+.transaction input[type="submit"] {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.transaction input[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.transaction input[type="submit"]:hover {
+    background-color: #45a049;
+}
