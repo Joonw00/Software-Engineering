@@ -11,3 +11,9 @@ class Public:
     @classmethod
     def get_coin_by_id(cls, coin_id):
         return cls.collection.find_one({"_id": coin_id})
+
+    @staticmethod
+    def get_coin_count():
+        coins_collection = DB["coins"]
+        coin_count = coins_collection.count_documents({})
+        return coin_count
