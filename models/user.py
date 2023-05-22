@@ -1,4 +1,5 @@
 from models.db import DB
+from flask import session
 
 class User:
     def __init__(self, username, name, password, coin=0, money=0):
@@ -17,9 +18,14 @@ class User:
         return user_data
 
     @staticmethod
-    # 로그인 성공 여부를 반환하는 메소드
     def authenticate(username, password):
         user_data = User.find_by_username(username)
         if user_data and user_data["password"] == password:
-            return True
-        return False
+            return User(
+                username=user_data["username"],
+                name=user_data["name"],
+                password=user_data["password"],
+                coin=user_data.get("coin", 0),
+                money=user_data.get("money", 0)
+            )
+        return None

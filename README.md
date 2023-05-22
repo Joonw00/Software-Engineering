@@ -8,5 +8,9 @@ Controller: routes 폴더 내에 라우트 함수들을 구현하여 클라이�
 
 
 
+# 주의
+ 로그인 세션은 routes에서 처리되어야 한다. 로그인이 성공한 경우 session["username"]에 사용자명을 저장하는 것은 routes에서 처리한다.models에서 세션을 조작하는 것은 디자인상 권장되지 않으며, 세션은 주로 routes에서 사용자 인증과 관련된 로직을 처리하는 데에 사용된다ㅏ.
+
 # 할 일
-models 내의 db.py를 utils폴더로 이동시킬 것
+1.models 내의 db.py를 utils폴더로 이동시킬 것
+2.coin,money를 user_coin, user_money로 바꿔야 할 듯?

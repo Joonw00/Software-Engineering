@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 from models.user import User
 from models.db import DB
 
@@ -29,6 +29,11 @@ def login():
     
         if User.authenticate(username, password):
             # 로그인 성공 처리
+            user_data = User.find_by_username(username)
+            session["username"] = user_data["username"]
+            session["name"] = user_data["name"]
+            session["user_coin"] = user_data.get("coin")
+            session["user_money"] = user_data.get("money")
             return redirect(url_for("coin.coin_exchange"))
         else:
             # 로그인 실패 처리
