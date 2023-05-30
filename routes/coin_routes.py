@@ -39,6 +39,32 @@ def coin_exchange():
             )
         else:
             return redirect(url_for("login"))
+        
+
+@coin_bp.route('/transaction', methods=['POST'])
+def transaction():
+    transaction_type = request.form.get('transaction-type')
+    amount = request.form.get('amount')
+    price = request.form.get('price')
+    # print(transaction_type, amount, price)
+
+    if transaction_type == 'deposit':
+        Coin.deposit(price)
+        result = f"입금 완료: {price}원"
+    elif transaction_type == 'withdraw':
+        Coin.withdraw(price)
+        result = f"출금 완료: {price}원"
+    elif transaction_type == 'buy':
+        Coin.buyCoin('coin', amount, price)
+        result = f"코인 구매 완료: 코인 {amount}개, 가격 {price}원"
+    elif transaction_type == 'sell':
+        Coin.sellCoin('coin', amount, price)
+        result = f"코인 판매 완료: 코인 {amount}개, 가격 {price}원"
+    # user의 /mypage 로 이동
+    return redirect(url_for('user.mypage'))
+    # return redirect(url_for('user.mypage', result=result))
+
+
 
 
 @coin_bp.route('/buy', methods=['POST'])

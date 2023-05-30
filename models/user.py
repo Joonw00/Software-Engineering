@@ -42,15 +42,16 @@ class User:
 
     @staticmethod
     def get_user_by_username(username):
-        # Code to retrieve user from database based on username
-        # Replace with your own implementation
-        user_data = {
-            "username": "john123",
-            "password": "password123",
-            "name": "John Doe",
-            "money": 1000.0,
-        }
-        return User(**user_data)
+        user_data = DB.users.find_one({"username": username})
+        if user_data:
+            return User(
+                username=user_data["username"],
+                name=user_data["name"],
+                password=user_data["password"],
+                coin=user_data.get("coin"),
+                money=user_data.get("money")
+            )
+        return None
 
     def save(self):
         DB.users.insert_one(self.__dict__)

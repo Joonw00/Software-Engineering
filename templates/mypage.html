@@ -3,6 +3,7 @@
 <head>
     <title>마이 페이지</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/mypage.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -11,8 +12,8 @@
     <main>
         <section class="balance">
             <h2>잔액</h2>
-            <p>보유 현금: {{ user.balance }}원</p>
-            <p>보유 코인: {{ user.coins }}</p>
+            <p>보유 현금: {{ user.money }}원</p>
+            <p>보유 코인: {{ user.coin }}</p>
         </section>
         <section class="transaction-history">
             <h2>거래 내역</h2>
@@ -21,7 +22,6 @@
                     <tr>
                         <th>날짜</th>
                         <th>종류</th>
-                        <th>코인</th>
                         <th>수량</th>
                         <th>가격</th>
                     </tr>
@@ -31,7 +31,6 @@
                     <tr>
                         <td>{{ transaction.timestamp }}</td>
                         <td>{{ transaction.transaction_type }}</td>
-                        <td>{{ transaction.coin }}</td>
                         <td>{{ transaction.amount }}</td>
                         <td>{{ transaction.price }}</td>
                     </tr>
@@ -41,17 +40,14 @@
         </section>
         <section class="transaction">
             <h2>거래하기</h2>
-            <form action="{{ url_for('static', filename='transaction') }}" method="POST">
+            <form action="/transaction" method="POST">
                 <label for="transaction-type">거래 종류:</label>
                 <select name="transaction-type" id="transaction-type">
-                    <option value="deposit">입금</option>
-                    <option value="withdraw">출금</option>
                     <option value="buy">코인 구매</option>
                     <option value="sell">코인 판매</option>
+                    <option value="deposit">입금</option>
+                    <option value="withdraw">출금</option>
                 </select>
-                <br>
-                <label for="coin">코인:</label>
-                <input type="text" name="coin" id="coin">
                 <br>
                 <label for="amount">수량:</label>
                 <input type="text" name="amount" id="amount">
@@ -59,8 +55,39 @@
                 <label for="price">가격:</label>
                 <input type="text" name="price" id="price">
                 <br>
-                <input type="submit" value="거래하기">
+                <div id="user-money" data-money="{{user.money}}"></div>
+                <input type="submit" onclick="return check()" value="거래하기">
+                <script>
+                    function check() {
+                        var transaction_type = document.getElementById("transaction-type").value;
+                        var amount = document.getElementById("amount").value;
+                        var price = document.getElementById("price").value;
+                        var money = document.getElementById("user-money").getAttribute("data-money");
+                        if (transaction_type == "withdraw" && price > money) {
+                            alert("잔액이 부족합니다.");
+                            return false;
+                        }
+                        return true;
+                    }
+                </script>
+
             </form>
+            <script>
+                // 입금, 출금을 선택하면 가격만 입력할 수 있게 함, j-query로 구현하할 것
+                // 코인 구매, 판매를 선택하면 수량과 가격을 모두 입력할 수 있게 함, j-query로 구현할 것
+                $(document).ready(function() {
+                    $('#transaction-type').change(function() {
+                        if ($(this).val() == 'deposit' || $(this).val() == 'withdraw') {
+                            $('#amount').attr('disabled', true);
+                            $('#price').attr('disabled', false);
+                        } else {
+                            $('#amount').attr('disabled', false);
+                            $('#price').attr('disabled', false);
+                        }
+                    });
+                });
+                
+            </script>
         </section>
     </main>
 </body>

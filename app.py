@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 app.config["SECRET_KEY"] = "OCML3BRawWEUeaxcuKHLpw" # TODO: 환경변수로 변경
 
-# app.register_blueprint(coin_bp)
+app.register_blueprint(coin_bp)
 app.register_blueprint(user_bp) # 로그인 사용자를 위한 엔드포인트
 app.register_blueprint(public_bp)
 

@@ -1,5 +1,8 @@
 from models.db import DB
+from flask import session
 from models.transactions import Transaction
+
+users_collection = DB["users"]
 
 class Coin:
     def __init__(self, name, price, count=0, price_change=0):
@@ -93,3 +96,49 @@ class Coin:
     def update_price_change(name, price_change):
         DB.coins.update_one({"name": name}, {"$set": {"price_change": price_change}})
 
+    # coin_routes.py에서 사용, transaction으로 접근 시 사용되는 코드
+    @staticmethod
+    def deposit(price):
+        # 세션을 통해 사용자 정보를 받아오기
+        username =  session["username"]
+        user = get_user(username)
+        user["money"] += int(price)
+        update_user(user)
+        Transaction.add_transaction(username, "deposit", None, price)
+
+    @staticmethod
+    def withdraw(price):
+        username =  session["username"]
+        user = get_user(username)
+        user["money"] -= int(price)
+        update_user(user)
+        Transaction.add_transaction(username, "withdraw", None, price)
+
+    @staticmethod
+    def buyCoin(coin, amount, price):
+        username =  session["username"]
+        user = get_user(username)
+        user["coin"] += int(amount)
+        user["money"] -= int(price)
+        update_user(user)
+        Transaction.add_transaction(username, "buy", coin, price)
+
+    @staticmethod
+    def sellCoin(coin, amount, price):
+        username =  session["username"]
+        user = get_user(username)
+        user["coin"] -= int(amount)
+        user["money"] += int(price)
+        update_user(user)
+        Transaction.add_transaction(username, "sell", coin, price)
+
+
+def get_user(username):
+    # 사용자 정보 조회
+    user = users_collection.find_one({"username": username})
+    return user
+
+def update_user(user):
+    # 사용자 정보 업데이트
+    username = user["username"]
+    users_collection.update_one({"username": username}, {"$set": user})

@@ -18,11 +18,10 @@ class Transaction:
         return transactions
     
     @staticmethod
-    def add_transaction(username, transaction_type, coin, amount, price):
+    def add_transaction(username, transaction_type, amount, price):
         transaction = {
             'username': username,
             'transaction_type': transaction_type,
-            'coin': coin,
             'amount': amount,
             'price': price,
             'timestamp': datetime.now()
