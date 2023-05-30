@@ -1,5 +1,4 @@
 # Software-Engineering
-소공 팀플
 
 
 Model: models 폴더 내에 데이터 모델과 데이터베이스 연결을 담당하는 코드를 구현하여, 데이터와 관련된 작업을 수행합니다.
