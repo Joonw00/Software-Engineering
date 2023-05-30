@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 from models.coin import Coin
 from models.user import User
 from models.transactions import Transaction
+from models.public import Public
 
 user_bp = Blueprint("user", __name__)
 
@@ -77,7 +78,8 @@ def mypage():
             username = session["username"]
             user = User.get_user_by_username(username)
             coins = Coin.get_all_coins()
+            market_coin = Public.get_coin_count()
             transactions = Transaction.get_transaction_history(username)
-            return render_template("mypage.html", user=user, coins=coins, transactions=transactions)
+            return render_template("mypage.html", user=user, coins=coins, transactions=transactions, market_coin=market_coin)
         else:
             return redirect(url_for("login"))

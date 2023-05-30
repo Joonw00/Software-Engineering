@@ -15,36 +15,14 @@
             <p>보유 현금: {{ user.money }}원</p>
             <p>보유 코인: {{ user.coin }}</p>
         </section>
-        <section class="transaction-history">
-            <h2>거래 내역</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>날짜</th>
-                        <th>종류</th>
-                        <th>수량</th>
-                        <th>가격</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for transaction in transactions %}
-                    <tr>
-                        <td>{{ transaction.timestamp }}</td>
-                        <td>{{ transaction.transaction_type }}</td>
-                        <td>{{ transaction.amount }}</td>
-                        <td>{{ transaction.price }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </section>
         <section class="transaction">
             <h2>거래하기</h2>
+            <h2>마켓에 남은 코인 개수: {{ market_coin }}</h2>
             <form action="/transaction" method="POST">
                 <label for="transaction-type">거래 종류:</label>
                 <select name="transaction-type" id="transaction-type">
-                    <option value="buy">코인 구매</option>
                     <option value="sell">코인 판매</option>
+                    <option value="buy">마켓에서 코인 구매</option>
                     <option value="deposit">입금</option>
                     <option value="withdraw">출금</option>
                 </select>
@@ -73,14 +51,15 @@
 
             </form>
             <script>
-                // 입금, 출금을 선택하면 가격만 입력할 수 있게 함, j-query로 구현하할 것
-                // 코인 구매, 판매를 선택하면 수량과 가격을 모두 입력할 수 있게 함, j-query로 구현할 것
                 $(document).ready(function() {
                     $('#transaction-type').change(function() {
                         if ($(this).val() == 'deposit' || $(this).val() == 'withdraw') {
                             $('#amount').attr('disabled', true);
                             $('#price').attr('disabled', false);
-                        } else {
+                        } else if($(this).val() == 'buy'){
+                            $('#amount').attr('disabled', false);
+                            $('#price').attr('disabled', true);
+                        } else{
                             $('#amount').attr('disabled', false);
                             $('#price').attr('disabled', false);
                         }
@@ -88,6 +67,29 @@
                 });
                 
             </script>
+        </section>
+        <section class="transaction-history">
+            <h2>사용자 거래 내역</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>날짜</th>
+                        <th>종류</th>
+                        <th>수량</th>
+                        <th>가격</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction.timestamp }}</td>
+                        <td>{{ transaction.transaction_type }}</td>
+                        <td>{{ transaction.amount }}</td>
+                        <td>{{ transaction.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </section>
     </main>
 </body>
