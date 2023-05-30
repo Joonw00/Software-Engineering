@@ -8,5 +8,6 @@ public_bp = Blueprint('public', __name__)
 def public_page():
     coins = Public.query_all_coins()
     coin_count = Public.get_coin_count()
+    buy_transactions = Transaction.get_buy_transactions()
     transactions = Transaction.get_all_transactions()
-    return render_template('public.html', coins=coins, transactions=transactions, coin_count=coin_count)
+    return render_template('public.html', coins=coins, transactions=transactions, coin_count=coin_count, buy_transactions=buy_transactions)

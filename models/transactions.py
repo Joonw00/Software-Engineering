@@ -7,6 +7,10 @@ class Transaction:
     @classmethod
     def get_all_transactions(cls):
         return list(cls.collection.find())
+    
+    @classmethod
+    def get_buy_transactions(cls):
+        return list(cls.collection.find({"transaction_type": "buy"}))
 
     @classmethod
     def get_transactions_by_username(cls, username):

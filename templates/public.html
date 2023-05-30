@@ -33,6 +33,33 @@
         <h2>남은 코인 개수: {{ coin_count }}</h2>
     </section>
     <br>
+    <!-- 판매등록된 정보들 출력 -->
+    <section class="transaction-section">
+        <h2>판매 등록 내역</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>사용자</th>
+                    <th>거래 유형</th>
+                    <th>코인</th>
+                    <th>수량</th>
+                    <th>가격</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.username }}</td>
+                    <td>{{ transaction.type }}</td>
+                    <td>{{ transaction.coin }}</td>
+                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    <br>
     <section class="transaction-section">
         <h2>채결 내역</h2>
         <table>
