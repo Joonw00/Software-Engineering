@@ -4,11 +4,20 @@
     <title>마이 페이지</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/mypage.css') }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h1>마이 페이지</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>마이 페이지</h1>
+            <div>
+                <a href="/public" class="header-button">퍼블릭 페이지</a>
+                <a href="/logout" class="header-button">로그아웃</a>
+            </div>
+        </div>
     </header>
+    
     <main>
         <section class="balance">
             <h2>잔액</h2>

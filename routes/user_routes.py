@@ -43,10 +43,10 @@ def login():
 
     # GET 요청에 대한 처리 코드
     return render_template("login.html")
-@user_bp.route("/logout")
+@user_bp.route("/logout", methods=["GET"])
 def logout():
     session.clear()
-    return redirect(url_for("user_bp.login"))
+    return redirect(url_for("user.login"))
 
 @user_bp.route('/mypage', methods=["GET", "POST"])
 def mypage():

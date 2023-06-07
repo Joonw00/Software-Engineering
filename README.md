@@ -12,4 +12,4 @@ Controller: routes 폴더 내에 라우트 함수들을 구현하여 클라이�
 
 # 할 일
 1.models 내의 db.py를 utils폴더로 이동시킬 것
-2.coin,money를 user_coin, user_money로 바꿔야 할 듯?
+2.url경로들에 router 이름 붙이기 ex)user/login, user/signup
