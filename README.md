@@ -15,9 +15,9 @@ Controller: routes 폴더 내에 라우트 함수들을 구현하여 클라이�
 2.url경로들에 router 이름 붙이기 ex:user/login, user/signup <br>
 3.페이징 기능 필요. 테이블이 너무 길어짐. (url에 페이지 받아와서 routes에서 처리하면 될 듯) <br>
 
-# 프로젝트 제목
+# 코인 거래 시스템 (Coin Trading System)
 
-프로젝트에 대한 간단한 설명 추가
+이 프로젝트는 코인 거래 시스템을 구현하는 것입니다.
 
 | ![웹페이지 사진 1](./path/to/image1.png) | ![웹페이지 사진 2](./path/to/image1.png) |
 |:---:|:---:|
@@ -34,13 +34,19 @@ Controller: routes 폴더 내에 라우트 함수들을 구현하여 클라이�
 3. 웹 서버를 실행하세요: `python app.py`
 4. 브라우저에서 http://localhost:5000 을 열고 확인하세요. -->
 
+
 ## 사용된 기술 스택
 
-- ![MongoDB Logo](./path/to/mongodb-logo.png) MongoDB
-- ![Flask Logo](./path/to/flask-logo.png) Flask
-- ![Python Logo](./path/to/python-logo.png) Python
-- ![JavaScript Logo](./path/to/javascript-logo.png) JavaScript
+이 프로젝트에서 사용된 기술 스택은 다음과 같습니다:
+
+![MongoDB Logo](https://path/to/mongodb-logo-on-official-site.png) MongoDB  
+![Flask Logo](https://path/to/flask-logo-on-official-site.png) Flask  
+![Python Logo](https://path/to/python-logo-on-official-site.png) Python  
+![JavaScript Logo](https://path/to/javascript-logo-on-official-site.png) JavaScript  
+
 
 ## ERD 구조
+
+이 프로젝트의 데이터베이스 구조는 다음과 같습니다:
 
 ![ERD 구조](./path/to/erd.png)
