@@ -30,19 +30,34 @@
                 <label for="amount">수량:</label>
                 <input type="text" name="amount" id="amount">
                 <br>
-                <label for="price">가격:</label>
+                <label for="price">코인당 가격:</label>
                 <input type="text" name="price" id="price">
                 <br>
                 <div id="user-money" data-money="{{user.money}}"></div>
+                <div id="user-coin" data-coin="{{user.coin}}"></div>
+                <div id="market-coin" data-market-coin="{{market_coin}}"></div>
                 <input type="submit" onclick="return check()" value="거래하기">
                 <script>
                     function check() {
                         var transaction_type = document.getElementById("transaction-type").value;
-                        var amount = document.getElementById("amount").value;
+                        var amount = parseInt(document.getElementById("amount").value); //입력한 코인 개수
                         var price = document.getElementById("price").value;
+                        var market_coin = document.getElementById("market-coin").getAttribute("data-market-coin"); //마켓에 남은 코인 개수
                         var money = document.getElementById("user-money").getAttribute("data-money");
+                        var user_coin = document.getElementById("user-coin").getAttribute("data-coin"); //유저가 보유한 코인 개수
+
                         if (transaction_type == "withdraw" && price > money) {
                             alert("잔액이 부족합니다.");
+                            return false;
+                        }
+                        if(transaction_type=="buy" && amount > market_coin){
+                            alert("마켓에 남은 코인 개수가 부족합니다.");
+                            return false;
+                        }
+                        if(transaction_type=="sell" && amount > user_coin){
+                            // alert("보유한 코인 개수가 부족합니다.");
+                            //amount출력
+                            alert(+amount+"개의 코인을 판매합니다."+user_coin+"개의 코인을 보유하고 있습니다.");
                             return false;
                         }
                         return true;
@@ -67,6 +82,42 @@
                 });
                 
             </script>
+        </section>
+        <!-- 등록된 코인 거래 정보 테이블로 보여주기 -->
+        <section class="transaction-history">
+            <h2>거래소</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>날짜</th>
+                        <th>등록자</th>
+                        <th>수량</th>
+                        <th>가격</th>
+                        <th>구매</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in register_transactions %}
+                    <tr>
+                        <td>{{ transaction.timestamp }}</td>
+                        <td>{{ transaction.username }}</td>
+                        <td>{{ transaction.amount }}</td>
+                        <td>{{ transaction.price }}</td>
+                        <td>
+                            <form action="/transaction" method="post">
+                                <input type="hidden" name="transaction-type" value="trans_done">
+                                <input type="hidden" name="amount" value="{{ transaction.amount }}">
+                                <input type="hidden" name="price" value="{{ transaction.price }}">
+                                <input type="hidden" name="seller" value="{{ transaction.username }}">
+                                <input type="hidden" name="buyer" value="{{ user.username }}">
+                                <input type="hidden" name="idx" value="{{ transaction.idx }}">
+                                <input type="submit" value="구매">                       
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </section>
         <section class="transaction-history">
             <h2>사용자 거래 내역</h2>

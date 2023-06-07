@@ -20,6 +20,9 @@ class User:
             self.money -= amount
         else:
             raise ValueError("Insufficient balance.")
+        
+    def update_user(self):
+        DB.users.update_one({"username": self.username}, {"$set": self.__dict__})
 
     def buy_coin(self, coin, amount):
         if amount * coin.price <= self.money:
@@ -32,16 +35,29 @@ class User:
             raise ValueError("Insufficient balance.")
 
     def sell_coin(self, coin, amount):
-        if coin.name in self.coins and self.coins[coin.name] >= amount:
+        if coin.name in self.coins:
             self.coins[coin.name] -= amount
             self.money += amount * coin.price
-            if self.coins[coin.name] == 0:
-                del self.coins[coin.name]
         else:
-            raise ValueError("Insufficient coin balance.")
+            raise ValueError("Insufficient balance.")
+        
+    
 
     @staticmethod
     def get_user_by_username(username):
+        user_data = DB.users.find_one({"username": username})
+        if user_data:
+            return User(
+                username=user_data["username"],
+                name=user_data["name"],
+                password=user_data["password"],
+                coin=user_data.get("coin"),
+                money=user_data.get("money")
+            )
+        return None
+
+    @staticmethod
+    def get_user_by_name(username):
         user_data = DB.users.find_one({"username": username})
         if user_data:
             return User(
