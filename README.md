@@ -39,10 +39,10 @@ Controller: routes 폴더 내에 라우트 함수들을 구현하여 클라이�
 
 이 프로젝트에서 사용된 기술 스택은 다음과 같습니다:
 
-![MongoDB Logo](https://path/to/mongodb-logo-on-official-site.png) MongoDB  
-![Flask Logo](https://path/to/flask-logo-on-official-site.png) Flask  
-![Python Logo](https://path/to/python-logo-on-official-site.png) Python  
-![JavaScript Logo](https://path/to/javascript-logo-on-official-site.png) JavaScript  
+- Flask
+- Python
+- JavaScript
+- - MongoDB
 
 
 ## ERD 구조
