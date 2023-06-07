@@ -14,3 +14,33 @@ Controller: routes 폴더 내에 라우트 함수들을 구현하여 클라이�
 1.models 내의 db.py를 utils폴더로 이동시킬 것
 2.url경로들에 router 이름 붙이기 ex:user/login, user/signup
 3.페이징 기능 필요. 테이블이 너무 길어짐. (url에 페이지 받아와서 routes에서 처리하면 될 듯)
+
+# 프로젝트 제목
+
+프로젝트에 대한 간단한 설명 추가
+
+| ![웹페이지 사진 1](./path/to/image1.png) | ![웹페이지 사진 2](./path/to/image1.png) |
+|:---:|:---:|
+| 웹페이지 사진 1 설명 | 웹페이지 사진 2 설명 |
+| ![웹페이지 사진 3](./path/to/image1.png) | ![웹페이지 사진 4](./path/to/image1.png) |
+| 웹페이지 사진 3 설명 | 웹페이지 사진 4 설명 |
+
+## 사용 방법
+
+프로젝트를 어떻게 사용하는지에 대한 방법 기술
+
+<!-- 1. 이 레포지토리를 클론하세요: `git clone https://github.com/your-username/your-repo.git`
+2. 필요한 패키지를 설치하세요: `pip install -r requirements.txt`
+3. 웹 서버를 실행하세요: `python app.py`
+4. 브라우저에서 http://localhost:5000 을 열고 확인하세요. -->
+
+## 사용된 기술 스택
+
+- ![MongoDB Logo](./path/to/mongodb-logo.png) MongoDB
+- ![Flask Logo](./path/to/flask-logo.png) Flask
+- ![Python Logo](./path/to/python-logo.png) Python
+- ![JavaScript Logo](./path/to/javascript-logo.png) JavaScript
+
+## ERD 구조
+
+![ERD 구조](./path/to/erd.png)
