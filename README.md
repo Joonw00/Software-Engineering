@@ -42,7 +42,7 @@ Controller: routes 폴더 내에 라우트 함수들을 구현하여 클라이�
 - Flask
 - Python
 - JavaScript
-- - MongoDB
+- MongoDB
 
 
 ## ERD 구조
