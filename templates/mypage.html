@@ -26,7 +26,7 @@
         </section>
         <section class="transaction">
             <h2>거래하기</h2>
-            <h2>마켓에 남은 코인 개수: {{ market_coin }}</h2>
+            <h2>마켓에 남은 코인 개수(가격:100원): {{ market_coin }}</h2>
             <form action="/transaction" method="POST">
                 <label for="transaction-type">거래 종류:</label>
                 <select name="transaction-type" id="transaction-type">
@@ -39,7 +39,7 @@
                 <label for="amount">수량:</label>
                 <input type="text" name="amount" id="amount">
                 <br>
-                <label for="price">코인당 가격:</label>
+                <label for="price">가격:</label>
                 <input type="text" name="price" id="price">
                 <br>
                 <div id="user-money" data-money="{{user.money}}"></div>
@@ -50,10 +50,10 @@
                     function check() {
                         var transaction_type = document.getElementById("transaction-type").value;
                         var amount = parseInt(document.getElementById("amount").value); //입력한 코인 개수
-                        var price = document.getElementById("price").value;
-                        var market_coin = document.getElementById("market-coin").getAttribute("data-market-coin"); //마켓에 남은 코인 개수
-                        var money = document.getElementById("user-money").getAttribute("data-money");
-                        var user_coin = document.getElementById("user-coin").getAttribute("data-coin"); //유저가 보유한 코인 개수
+                        var price = parseInt(document.getElementById("price").value);
+                        var market_coin = parseInt(document.getElementById("market-coin").getAttribute("data-market-coin")); //마켓에 남은 코인 개수
+                        var money = parseInt(document.getElementById("user-money").getAttribute("data-money"));
+                        var user_coin = parseInt(document.getElementById("user-coin").getAttribute("data-coin")); //유저가 보유한 코인 개수
 
                         if (transaction_type == "withdraw" && price > money) {
                             alert("잔액이 부족합니다.");
@@ -64,9 +64,7 @@
                             return false;
                         }
                         if(transaction_type=="sell" && amount > user_coin){
-                            // alert("보유한 코인 개수가 부족합니다.");
-                            //amount출력
-                            alert(+amount+"개의 코인을 판매합니다."+user_coin+"개의 코인을 보유하고 있습니다.");
+                            alert("보유한 코인 개수가 부족합니다.");
                             return false;
                         }
                         return true;
@@ -151,6 +149,34 @@
                 </tbody>
             </table>
         </section>
+        <section class="chart-section">
+            <h2>코인 차트</h2>
+            <p>코인의 최근 10개의 가격을 차트로 보여준다.(x축 0부터 최근 정보)</p>
+            <canvas id="coinChart"></canvas>
+            <div id="recent_prices" data-recent_prices="{{recent_prices}}"></div>
+        </section>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+        var ctx = document.getElementById('coinChart').getContext('2d');
+        var recent_prices = JSON.parse(document.getElementById('recent_prices').getAttribute('data-recent_prices'));
+        var labels_set = []
+        for (var i = 0; i < recent_prices.length; i++) {
+            labels_set.push(i)
+        }
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels_set,
+                datasets: [{
+                    label: '코인 가격',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: recent_prices
+                }]
+            },
+            options: {}
+        });
+        </script>
     </main>
 </body>
 </html>

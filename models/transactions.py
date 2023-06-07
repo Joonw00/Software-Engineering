@@ -22,6 +22,12 @@ class Transaction:
         return transactions
     
     @staticmethod
+    def get_recent_transactions():
+        # 최근 10개의 거래내역을 가져온다. tansaction_type은 trans_done으로 설정한다.
+        transactions = DB.transactions.find({"transaction_type": "trans_done"}).sort('timestamp', -1).limit(10)
+        return transactions
+    
+    @staticmethod
     def get_transactions_by_type(transaction_type):
         transactions = DB.transactions.find({'transaction_type': transaction_type})
         # for transaction in transactions:

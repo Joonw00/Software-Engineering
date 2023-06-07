@@ -132,7 +132,7 @@ class Coin:
         # 업데이트
         Coin.update_coin_count(remain_coin)
         update_user(user)
-        Transaction.add_transaction(username, "buy", coin, price)
+        Transaction.add_transaction(username, "buy", amount, price)
 
     @staticmethod
     def sellCoin(coin, amount, price):

@@ -11,6 +11,8 @@ def signup():
     if request.method == "POST":
         # 사용자 정보를 가져오는 코드
         username = request.form.get("username")
+        if User.find_by_username(username):
+            return render_template("error.html", error_message="이미 존재하는 사용자입니다.")
         name = request.form.get("name")
         password = request.form.get("password")
         user = User(username, name, password, coin=0, money=0)
@@ -83,6 +85,11 @@ def mypage():
             # register된 코인의 거래 내역을 가져온다
             register_transactions = Transaction.get_transactions_by_type("register") #register된 코인의 거래 내역
             transactions = Transaction.get_transaction_history(username) #유저의 거래 내역
-            return render_template("mypage.html", user=user, coins=coins, transactions=transactions, market_coin=market_coin, register_transactions=register_transactions)
+            
+            recent_transactions = Transaction.get_recent_transactions()
+            recent_prices = []
+            for transaction in recent_transactions:
+                recent_prices.append(int(transaction["price"]))
+            return render_template("mypage.html", user=user, coins=coins, transactions=transactions, market_coin=market_coin, register_transactions=register_transactions, recent_prices=recent_prices)
         else:
             return redirect(url_for("login"))

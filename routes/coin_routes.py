@@ -74,10 +74,13 @@ def transaction():
         if(int(seller_info.coin) < int(amount)):
             result = "판매자의 코인이 부족합니다." # 판매자의 코인이 부족한 경우
             # 에러 페이지 렌더링
-            return render_template("coin_error.html", error_message=result)          
+            return render_template("error.html", error_message=result)          
         elif (int(buyer_info.money) < int(price)):
             result = "구매자의 보유금이 부족합니다" # 구매자의 돈이 부족한 경우
-            return render_template("coin_error.html", error_message=result)     
+            return render_template("error.html", error_message=result)   
+        elif (seller == buyer):
+            result = "자신이 등록한 거래 정보입니다."
+            return render_template("error.html", error_message=result)
         else:
             # 판매자의 돈을 더해주고 코인을 빼준다.
             seller_info.money += int(price) * int(amount)

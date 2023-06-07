@@ -112,3 +112,13 @@ section {
 .transaction input[type="submit"]:hover {
     background-color: #2b78e3;
 }
+
+
+.chart-section {
+    padding: 20px;
+    max-width: 900px;
+    margin: 20px auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.02);
+}
