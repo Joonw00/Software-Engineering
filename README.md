@@ -14,7 +14,8 @@ Controller: routes 폴더 내에 라우트 함수들을 구현하여 클라이�
 1.models 내의 db.py를 utils폴더로 이동시킬 것 <br>
 2.url경로들에 router 이름 붙이기 ex:user/login, user/signup <br>
 3.페이징 기능 필요. 테이블이 너무 길어짐. (url에 페이지 받아와서 routes에서 처리하면 될 듯) <br>
-4.리펙토링 매우 필요**
+4.리펙토링 매우 필요**<br>
+5.erd짤 때 transaction을 selling-post와 transaction으로 나누면 좋았으 ㄹ듯
 
 # 코인 거래 시스템 (Coin Trading System)
 
