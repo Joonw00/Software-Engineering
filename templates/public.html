@@ -30,7 +30,32 @@
                 {% endfor %}
             </tbody>
         </table>
-        <h2>남은 코인 개수: {{ coin_count }}</h2>
+        <h2>마켓에 남은 코인 개수: {{ coin_count }}</h2>
+    </section>
+    <br>
+    <!-- 판매등록된 정보들 출력 -->
+    <section class="transaction-section">
+        <h2>판매 등록 내역</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>사용자</th>
+                    <th>거래 유형</th>
+                    <th>수량</th>
+                    <th>가격</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in trans_regist %}
+                <tr>
+                    <td>{{ transaction.username }}</td>
+                    <td>{{ transaction.transaction_type }}</td>
+                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </section>
     <br>
     <section class="transaction-section">
@@ -38,23 +63,51 @@
         <table>
             <thead>
                 <tr>
-                    <th>사용자</th>
-                    <th>거래 유형</th>
-                    <th>코인</th>
+                    <th>판매자</th>
+                    <th>구매자</th>
                     <th>수량</th>
+                    <th>코인당 가격</th>
                 </tr>
             </thead>
             <tbody>
-                {% for transaction in transactions %}
+                {% for transaction in trans_done %}
                 <tr>
-                    <td>{{ transaction.username }}</td>
-                    <td>{{ transaction.type }}</td>
-                    <td>{{ transaction.coin }}</td>
+                    <td>{{ transaction.seller }}</td>
+                    <td>{{ transaction.buyer }}</td>
                     <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.price }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </section>
+    <section class="chart-section">
+        <h2>코인 차트</h2>
+        <p>코인의 최근 10개의 가격을 차트로 보여준다.(x축 0부터 최근 정보)</p>
+        <canvas id="coinChart"></canvas>
+        <div id="recent_prices" data-recent_prices="{{recent_prices}}"></div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    var ctx = document.getElementById('coinChart').getContext('2d');
+    var recent_prices = JSON.parse(document.getElementById('recent_prices').getAttribute('data-recent_prices'));
+    var labels_set = []
+    for (var i = 0; i < recent_prices.length; i++) {
+        labels_set.push(i)
+    }
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels_set,
+            datasets: [{
+                label: '코인 가격',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: recent_prices
+            }]
+        },
+        options: {}
+    });
+    </script>
 </body>
 </html>

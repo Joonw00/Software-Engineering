@@ -15,5 +15,6 @@ class Public:
     @staticmethod
     def get_coin_count():
         coins_collection = DB["coins"]
-        coin_count = coins_collection.count_documents({})
+        #name이 Bitcoin인 코인의 count를 가져온다.
+        coin_count = coins_collection.find_one({"name": "Bitcoin"})["count"]
         return coin_count

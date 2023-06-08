@@ -3,6 +3,7 @@ from flask import session
 from models.transactions import Transaction
 
 users_collection = DB["users"]
+coins_collection = DB["coins"]
 
 class Coin:
     def __init__(self, name, price, count=0, price_change=0):
@@ -89,8 +90,13 @@ class Coin:
         # 사용자의 코인을 업데이트하는 로직 구현
 
     @staticmethod
-    def update_coin_price(name, new_price):
-        DB.coins.update_one({"name": name}, {"$set": {"price": new_price}})
+    def update_coin_price(new_price):
+        # name이 Bitcoin인 항목 업데이트
+        DB.coins.update_one({"name": "Bitcoin"}, {"$set": {"price": new_price}})
+    
+    @staticmethod
+    def update_coin_count(new_count):
+        DB.coins.update_one({"name": "Bitcoin"}, {"$set": {"count": new_count}})
 
     @staticmethod
     def update_price_change(name, price_change):
@@ -114,21 +120,26 @@ class Coin:
         update_user(user)
         Transaction.add_transaction(username, "withdraw", None, price)
 
+
+    # 마켓 플레이스에서 코인 구매
     @staticmethod
     def buyCoin(coin, amount, price):
         username =  session["username"]
         user = get_user(username)
         user["coin"] += int(amount)
-        user["money"] -= int(price)
+        user["money"] -= int(amount) * 100
+        remain_coin = Coin.get_coin_by_name("Bitcoin").count - int(amount)
+        # 업데이트
+        Coin.update_coin_count(remain_coin)
         update_user(user)
-        Transaction.add_transaction(username, "buy", coin, price)
+        Transaction.add_transaction(username, "buy", amount, price)
 
     @staticmethod
     def sellCoin(coin, amount, price):
         username =  session["username"]
         user = get_user(username)
         user["coin"] -= int(amount)
-        user["money"] += int(price)
+        # user["money"] += int(price)
         update_user(user)
         Transaction.add_transaction(username, "sell", coin, price)
 

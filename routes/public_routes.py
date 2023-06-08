@@ -8,5 +8,13 @@ public_bp = Blueprint('public', __name__)
 def public_page():
     coins = Public.query_all_coins()
     coin_count = Public.get_coin_count()
-    transactions = Transaction.get_all_transactions()
-    return render_template('public.html', coins=coins, transactions=transactions, coin_count=coin_count)
+    trans_done = Transaction.get_transactions_by_type("trans_done")
+    trans_regist = Transaction.get_transactions_by_type("register")
+
+    # 그래프에 들어갈 데이터
+    # 최근 10개의 거래내역을 가져온다.
+    recent_transactions = Transaction.get_recent_transactions()
+    recent_prices = []
+    for transaction in recent_transactions:
+        recent_prices.append(int(transaction["price"]))
+    return render_template('public.html', coins=coins, trans_regist=trans_regist, coin_count=coin_count, trans_done=trans_done, recent_prices=recent_prices)

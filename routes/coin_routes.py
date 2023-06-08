@@ -58,8 +58,44 @@ def transaction():
         Coin.buyCoin('coin', amount, price)
         result = f"코인 구매 완료: 코인 {amount}개, 가격 {price}원"
     elif transaction_type == 'sell':
-        Coin.sellCoin('coin', amount, price)
+        sell_amount = int(request.form.get("amount"))
+        sell_price = int(request.form.get("price"))
+        username = session["username"]
+        Transaction.regist_coin(username, sell_amount, sell_price)
         result = f"코인 판매 완료: 코인 {amount}개, 가격 {price}원"
+    elif transaction_type == "trans_done":
+        seller = request.form.get("seller")
+        buyer = session["username"]
+        idx = int(request.form.get("idx"))
+        #판매자 정보와 구매자 정보 받아오기
+        seller_info = User.get_user_by_username(seller)
+        buyer_info = User.get_user_by_username(buyer)
+        #거래 가능한지 확인
+        if(int(seller_info.coin) < int(amount)):
+            result = "판매자의 코인이 부족합니다." # 판매자의 코인이 부족한 경우
+            # 에러 페이지 렌더링
+            return render_template("error.html", error_message=result)          
+        elif (int(buyer_info.money) < int(price)):
+            result = "구매자의 보유금이 부족합니다" # 구매자의 돈이 부족한 경우
+            return render_template("error.html", error_message=result)   
+        elif (seller == buyer):
+            result = "자신이 등록한 거래 정보입니다."
+            return render_template("error.html", error_message=result)
+        else:
+            # 판매자의 돈을 더해주고 코인을 빼준다.
+            seller_info.money += int(price) * int(amount)
+            seller_info.coin -= int(amount)
+            # 구매자의 돈을 빼주고 코인을 더해준다.
+            buyer_info.money -= int(price) * int(amount)
+            buyer_info.coin += int(amount)
+            # 유저 정보를 업데이트한다.
+            User.update_user(seller_info)
+            User.update_user(buyer_info)
+            # transation에서 idx를 통해 거래내역을 찾아 삭제한다
+            transaction = Transaction.del_transaction(idx)
+            # 거래 완료 내역을 추가한다.
+            Transaction.transaction_done(seller, buyer, amount, price)
+            result = f"거래 완료: 코인 {amount}개, 가격 {price}원"
     # user의 /mypage 로 이동
     return redirect(url_for('user.mypage'))
     # return redirect(url_for('user.mypage', result=result))
