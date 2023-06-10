@@ -10,12 +10,12 @@ Controller: routes 폴더 내에 라우트 함수들을 구현하여 클라이�
 # 주의
  로그인 세션은 routes에서 처리되어야 한다. 로그인이 성공한 경우 session["username"]에 사용자명을 저장하는 것은 routes에서 처리한다.models에서 세션을 조작하는 것은 디자인상 권장되지 않으며, 세션은 주로 routes에서 사용자 인증과 관련된 로직을 처리하는 데에 사용된다ㅏ.
 
-# 할 일
+<!-- # 할 일
 1.models 내의 db.py를 utils폴더로 이동시킬 것 <br>
 2.url경로들에 router 이름 붙이기 ex:user/login, user/signup <br>
 3.페이징 기능 필요. 테이블이 너무 길어짐. (url에 페이지 받아와서 routes에서 처리하면 될 듯) <br>
 4.리펙토링 매우 필요**<br>
-5.erd짤 때 transaction을 selling-post와 transaction으로 나누면 좋았으 ㄹ듯
+5.erd짤 때 transaction을 selling-post와 transaction으로 나누면 좋았으 ㄹ듯 -->
 
 # 코인 거래 시스템 (Coin Trading System)
 
@@ -29,12 +29,12 @@ Controller: routes 폴더 내에 라우트 함수들을 구현하여 클라이�
 
 ## 사용 방법
 
-프로젝트를 어떻게 사용하는지에 대한 방법 기술
+프로젝트를 어떻게 사용하는지에 대한 방법
 
-<!-- 1. 이 레포지토리를 클론하세요: `git clone https://github.com/your-username/your-repo.git`
+<!-- 1. 이 레포지토리를 클론하세요: `git clone https://github.com/Joonw00/Software-Engineering.git`
 2. 필요한 패키지를 설치하세요: `pip install -r requirements.txt`
 3. 웹 서버를 실행하세요: `python app.py`
-4. 브라우저에서 http://localhost:5000 을 열고 확인하세요. -->
+4. 브라우저에서 http://localhost:5000/loginㅈ 을 열고 확인하세요. -->
 
 
 ## 사용된 기술 스택
