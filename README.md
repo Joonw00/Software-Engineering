@@ -21,10 +21,10 @@ Controller: routes 폴더 내에 라우트 함수들을 구현하여 클라이�
 
 이 프로젝트는 코인 거래 시스템을 구현하는 것입니다.
 
-| ![웹페이지 사진 1](./path/to/image1.png) | ![웹페이지 사진 2](./path/to/image1.png) |
+| ![로그인 페이지](./path/to/login.png) | ![회원가입 페이지](./path/to/signup.png) |
 |:---:|:---:|
 | 웹페이지 사진 1 설명 | 웹페이지 사진 2 설명 |
-| ![웹페이지 사진 3](./path/to/image1.png) | ![웹페이지 사진 4](./path/to/image1.png) |
+| ![마이 페이지](./path/to/mypage.png) | ![퍼블릭 페이지](./path/to/public.png) |
 | 웹페이지 사진 3 설명 | 웹페이지 사진 4 설명 |
 
 ## 사용 방법
